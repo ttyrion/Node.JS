@@ -1,12 +1,11 @@
 # JavaScript随手记
 ### for-in(怎么理解数组是特殊的对象？)
-for-in的作用是**枚举对象的属性**！先列出for-in的语法：
+for-in的作用是**枚举对象的“可枚举”属性**！先列出for-in的语法：
 ```JavaScript
 for (variable in object) {
     statement
 }
 ```
-首先，这里值得注意的是，variable可以是任何左值表达式或者用var／const／let声明的变量。总之，variable可以是（也必须是）一个左值。
 
 对于for-in枚举对象的属性这一作用，很好理解，如下代码：
 ```JavaScript
@@ -27,6 +26,27 @@ z is a string
 
 ```
 上面的代码很直观，for-in枚举了对象obj的属性，并且可以看到属性（名称）是字符串。
+
+这里**值得注意**的是，variable可以是任何左值表达式或者用var／const／let声明的变量。总之，variable可以是（也必须是）一个左值。比如下面的代码将一个对象的属性放到一个数组中：
+```JavaScript
+var obj = {
+    x: 1,
+    y: "hello",
+    z: false
+};
+
+var arr = [];
+var i = 0;
+for (arr[i++] in obj) {
+    // do nothing
+}
+
+console.log(arr);
+
+// output
+(3) ["x", "y", "z"]
+
+```
 
 再拿一个数组当例子：
 ```JavaScript
