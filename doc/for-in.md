@@ -1,4 +1,3 @@
-# JavaScript随手记
 ### for-in(怎么理解数组是特殊的对象？)
 for-in的作用是**枚举对象的“可枚举”属性**！先列出for-in的语法：
 ```JavaScript
