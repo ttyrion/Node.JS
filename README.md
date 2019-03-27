@@ -9,3 +9,5 @@ sth. about learning node.js
 [JavaScript: 原型链、属性继承以及属性访问](https://github.com/ttyrion/Node.JS/blob/master/doc/prototype-and-props.md)
 
 [函数声明语句和函数定义表达式](https://github.com/ttyrion/Node.JS/blob/master/doc/function-declare-and-definition.md)
+
+[闭包：实现与应用](https://github.com/ttyrion/Node.JS/blob/master/doc/closure.md)
