@@ -13,6 +13,9 @@ function getConvexHull (points) {
   let lower = [];
 
   sortedPoints.forEach((item,index) => {
+    /**
+     * Note that, the y-coordinate of canvas is oposite to that of Rectangular Coordinates
+     */
     while ( upper.length >= 2 && (cross(upper[upper.length-2], upper[upper.length-1], item) <= 0)) {
       upper.pop();
     }
