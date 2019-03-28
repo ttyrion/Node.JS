@@ -43,8 +43,8 @@ function Painter(c, ctx) {
 
     let points = [];
     for (let i = 0; i < num; ++i) {
-      const x = parseInt(Math.random()*c.width);
-      const y = parseInt(Math.random()*c.height);
+      const x = parseInt(Math.random()*c.width * 2 / 3 + 100);
+      const y = parseInt(Math.random()*c.height * 2 / 3 + 100);
       points.push({
         x:x,
         y:y
@@ -65,6 +65,38 @@ function Painter(c, ctx) {
     });
     this.ctx.lineTo(convexHullPoints[0].x, convexHullPoints[0].y);
     ctx.stroke();
+
+    let step = 0.002;
+    let computeSplineCurve = function(p0,p1,p2,p3,t) {
+      let pt = {};
+      pt.x = p0.x*(-0.5*t*t*t + t*t -0.5*t)
+           + p1.x*(1.5*t*t*t - 2.5*t*t + 1.0)
+           + p2.x*(-1.5*t*t*t + 2.0*t*t + 0.5*t)
+           + p3.x*(0.5*t*t*t - 0.5*t*t);
+      pt.y = p0.y*(-0.5*t*t*t + t*t -0.5*t)
+           + p1.y*(1.5*t*t*t - 2.5*t*t + 1.0)
+           + p2.y*(-1.5*t*t*t + 2.0*t*t + 0.5*t)
+           + p3.y*(0.5*t*t*t - 0.5*t*t);
+      return {
+        x: parseInt(pt.x),
+        y: parseInt(pt.y)
+      }
+    }
+
+    let splineCurves = convexHullPoints.length;
+    for (let i = 0; i < splineCurves; ++i) {
+      /**
+       * 4 control points of a spline curve
+       */
+      let P0 = convexHullPoints[i % splineCurves];
+      let P1 = convexHullPoints[(i+1) % splineCurves];
+      let P2 = convexHullPoints[(i+2) % splineCurves];
+      let P3 = convexHullPoints[(i+3) % splineCurves];
+      for (t = 0.0; t <= 1.0; t += step) {
+        let pt = computeSplineCurve(P0,P1,P2,P3,t);
+        this.drawPoint(pt, "#FF0000");
+      }
+    }
   }
 }
 
